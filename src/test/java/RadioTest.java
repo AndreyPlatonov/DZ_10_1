@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 public class RadioTest {
     @Test
     public void setNextStationOver() {
-        Radio radioTest = new Radio();
-        radioTest.setRadioStation(9);
+        Radio radioTest = new Radio(20);
+        radioTest.setRadioStation(radioTest.getEndRadioStation());
         radioTest.nextRadioStation();
 
-        int expected = 0;
+        int expected = radioTest.getBeginRadioStation();
         int actual = radioTest.getRadioStation();
 
         Assertions.assertEquals(expected, actual);
@@ -29,11 +29,11 @@ public class RadioTest {
 
     @Test
     public void setPrevStationUnder() {
-        Radio radioTest = new Radio();
-        radioTest.setRadioStation(0);
+        Radio radioTest = new Radio(48);
+        radioTest.setRadioStation(radioTest.getBeginRadioStation());
         radioTest.prevRadioStation();
 
-        int expected = 9;
+        int expected = radioTest.getEndRadioStation();
         int actual = radioTest.getRadioStation();
 
         Assertions.assertEquals(expected, actual);
@@ -41,7 +41,7 @@ public class RadioTest {
 
     @Test
     public void setPrevStation() {
-        Radio radioTest = new Radio();
+        Radio radioTest = new Radio(0);
         radioTest.setRadioStation(6);
         radioTest.prevRadioStation();
 
@@ -54,20 +54,19 @@ public class RadioTest {
 
     @Test
     public void setRadioStationOver() {
-        Radio radioTest = new Radio();
-        radioTest.setRadioStation(10);
-
-        int expected = 0;
+        Radio radioTest = new Radio(50);
+        radioTest.setRadioStation(radioTest.getBeginRadioStation() + radioTest.getQuantityRadioStation());
+        int expected = radioTest.getBeginRadioStation();
         int actual = radioTest.getRadioStation();
         Assertions.assertEquals(expected, actual);
     }
 
     @Test
     public void setRadioStationUnder() {
-        Radio radioTest = new Radio();
-        radioTest.setRadioStation(-1);
+        Radio radioTest = new Radio(13);
+        radioTest.setRadioStation(radioTest.getBeginRadioStation() - 1);
 
-        int expected = 0;
+        int expected = radioTest.getBeginRadioStation();
         int actual = radioTest.getRadioStation();
         Assertions.assertEquals(expected, actual);
     }
